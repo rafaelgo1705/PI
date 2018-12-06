@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/cadastroClienteCancelar"
+        android:icon="@drawable/baseline_cancel_white_24"
+        android:title="Cancelar"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/cadastroClienteCadastrar"
+        android:icon="@drawable/baseline_check_circle_white_24"
+        android:title="Cadastrar"
+        app:showAsAction="always" />
+</menu>
