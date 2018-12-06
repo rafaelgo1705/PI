@@ -2,6 +2,9 @@ package com.example.rr147.projetointegrador.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -12,15 +15,17 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.rr147.projetointegrador.Fragmentos.CarrinhoFragment;
+import com.example.rr147.projetointegrador.Fragmentos.ContaFragment;
 import com.example.rr147.projetointegrador.R;
-import com.example.rr147.projetointegrador.adapter.ProdutoAdapter;
+import com.example.rr147.projetointegrador.Fragmentos.ListaProdutosFragment;
 import com.example.rr147.projetointegrador.dao.ProdutoDAO;
 import com.example.rr147.projetointegrador.domain.Produto;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutosActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ListView listViewProdutos;
     private DrawerLayout drawer;
@@ -35,11 +40,10 @@ public class ProdutosActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_produtos);
+        setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        listViewProdutos = (ListView)findViewById(R.id.listViewProdutos);
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -50,24 +54,14 @@ public class ProdutosActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        produtoArrayList = new ArrayList<>();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.fragment_content,new ListaProdutosFragment()).commit();
 
-        produtoArrayAdapter = new ProdutoAdapter(this, produtoArrayList);
-        listViewProdutos.setAdapter(produtoArrayAdapter);
+        navigationView.setCheckedItem(R.id.nav_produtos);
 
-        addProdutos();
     }
 
-    public void addProdutos(){
-        Produto produto1 = new Produto("AK 1001 Bombril Dissipadora cartucho para 50 balas 10 tiros por segundo mata mesmo", 2546.45, 5);
-        produtoArrayList.add(produto1);
 
-        Produto produto2 = new Produto("Submetralhadora", 20652.45, 5);
-        produtoArrayList.add(produto2);
-
-        Produto produto3 = new Produto("Canhão Full", 220000.00, 2);
-        produtoArrayList.add(produto3);
-    }
 
     @Override
     public void onBackPressed() {
@@ -100,17 +94,35 @@ public class ProdutosActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Fragment fragment = null;
 
-        if (id == R.id.nav_conta) {
+        if (id == R.id.nav_produtos) {
+            fragment = new ListaProdutosFragment();
+
+            displaySelectedFragment(fragment);
+
+        } else if (id == R.id.nav_conta) {
+
+            fragment = new ContaFragment();
+
+            displaySelectedFragment(fragment);
 
         } else if (id == R.id.nav_carrinho) {
 
-        } else if (id == R.id.nav_sair) {
+            fragment = new CarrinhoFragment();
+
+            displaySelectedFragment(fragment);
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void displaySelectedFragment(Fragment fragment) {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_content, fragment);
+        fragmentTransaction.commit();
     }
 }

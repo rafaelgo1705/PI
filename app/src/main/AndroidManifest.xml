@@ -23,7 +23,7 @@
         <activity android:name=".activity.CadastroClienteActivity" />
         <activity android:name=".activity.VerContaClienteActivity" />
         <activity
-            android:name=".activity.ProdutosActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/title_activity_produtos"
             android:theme="@style/AppTheme.NoActionBar" />
     </application>

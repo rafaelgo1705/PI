@@ -5,6 +5,12 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_produtos"
+            android:icon="@drawable/baseline_power_settings_new_black_24"
+            android:title="Produtos"
+            />
+
+        <item
             android:id="@+id/nav_conta"
             android:icon="@drawable/baseline_account_circle_24"
             android:title="Conta" />
@@ -12,10 +18,7 @@
             android:id="@+id/nav_carrinho"
             android:icon="@drawable/baseline_local_grocery_store_black_24"
             android:title="Carrinho" />
-        <item
-            android:id="@+id/nav_sair"
-            android:icon="@drawable/baseline_power_settings_new_black_24"
-            android:title="Sair" />
+
     </group>
 
 </menu>
