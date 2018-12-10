@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 
@@ -67,12 +68,18 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(JSONObject response) {
                         abrirTelaInicial(cliente.getEmail());
+                        try {
+                            Log.i("token", "Sucesso: "+String.valueOf(response.getJSONObject("Authorization")));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
 
                 }, new Response.ErrorListener() {
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.i("token", "Erro: "+String.valueOf(error));
             }
         }) {
             @Override

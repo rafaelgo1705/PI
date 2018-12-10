@@ -15,10 +15,10 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.rr147.projetointegrador.Fragmentos.CarrinhoFragment;
-import com.example.rr147.projetointegrador.Fragmentos.ContaFragment;
+import com.example.rr147.projetointegrador.fragmentos.CarrinhoFragment;
+import com.example.rr147.projetointegrador.fragmentos.ContaFragment;
 import com.example.rr147.projetointegrador.R;
-import com.example.rr147.projetointegrador.Fragmentos.ListaProdutosFragment;
+import com.example.rr147.projetointegrador.fragmentos.ListaProdutosFragment;
 import com.example.rr147.projetointegrador.dao.ProdutoDAO;
 import com.example.rr147.projetointegrador.domain.Produto;
 
