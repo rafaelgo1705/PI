@@ -1,8 +1,11 @@
 package com.example.rr147.projetointegrador.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -24,14 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProdutosActivity extends AppCompatActivity {
-    private Spinner spinner;
+    public static Spinner spinner;
     public static TextView textView;
 
     private BuscarCarrinho buscaCarrinho;
     private Secao secao;
     public static List<Categoria> listCategoria = new ArrayList<>();
     public static List<Produto> listProdutos = new ArrayList<>();
-    public static ArrayAdapter<Categoria> adapter;
+    public static ArrayAdapter<Categoria> adapterProdutos;
     public static List<ItemCarrinho> listItemCarrinho = new ArrayList<>();
     public static ListView listViewProdutos;
     public static Context context;
@@ -40,7 +43,6 @@ public class ProdutosActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
-
 
         secao = new Secao(this);
         LoginActivity.activity.finish();
@@ -57,12 +59,10 @@ public class ProdutosActivity extends AppCompatActivity {
         listViewProdutos = (ListView) findViewById(R.id.listaProdutos);
         spinner = findViewById(R.id.spinner);
 
+        adapterProdutos = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, listCategoria);
+        adapterProdutos.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        adapter = new ArrayAdapter<Categoria>(this, android.R.layout.simple_spinner_item, listCategoria);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        spinner.setAdapter(adapter);
-
+        spinner.setAdapter(adapterProdutos);
 
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -70,8 +70,8 @@ public class ProdutosActivity extends AppCompatActivity {
                 Categoria categoria = (Categoria) parent.getSelectedItem();
                 displaySelectedCategory(categoria);
 
-                BuscarProdutos busca_produtos = new BuscarProdutos();
-                busca_produtos.request("categoria/" + categoria.getId(), "GET");
+                BuscarProdutos buscarProdutos = new BuscarProdutos();
+                buscarProdutos.request("/produto/"+categoria.getId(), "GET");
             }
 
             @Override
@@ -94,7 +94,32 @@ public class ProdutosActivity extends AppCompatActivity {
             }
         });
 
-        upDate_view();
+        carrinho();
+
+        getSupportActionBar().setTitle("Produtos");
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.produtos, menu);
+        return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if(id == R.id.sair){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+            finish();
+        }
+        if(id == R.id.carrinho){
+            Intent intent = new Intent(this, CarrinhoActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(menuItem);
     }
 
     @Override
@@ -103,7 +128,10 @@ public class ProdutosActivity extends AppCompatActivity {
 
         if (spinner.getSelectedItem() == null) {
             BuscarCategoria buscarCategoria = new BuscarCategoria();
-            buscarCategoria.request("categoriainfo", "GET");
+            buscarCategoria.request("/categoria/listar", "GET");
+
+            BuscarProdutos buscarProdutos = new BuscarProdutos();
+            buscarProdutos.request("/produto/listar", "GET");
         }
     }
 
@@ -116,10 +144,9 @@ public class ProdutosActivity extends AppCompatActivity {
 
         Toast.makeText(this, cat_info, Toast.LENGTH_LONG).show();
 
-
     }
 
-    public void upDate_view() {
-        buscaCarrinho.request("auth/carrinho", "GET", secao.token());
+    public void carrinho() {
+        buscaCarrinho.request("/carrinho", "GET", secao.token());
     }
 }

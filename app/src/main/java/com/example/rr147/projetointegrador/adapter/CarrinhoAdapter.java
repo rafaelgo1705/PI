@@ -32,7 +32,7 @@ public class CarrinhoAdapter extends ArrayAdapter<ItemCarrinho> {
         if (carrinhoArrayList != null) {
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(context.LAYOUT_INFLATER_SERVICE);
 
-            view = inflater.inflate(R.layout.layout_lista_produto, parent, false);
+            view = inflater.inflate(R.layout.layout_carrinho, parent, false);
 
             ImageView imageView = (ImageView)view.findViewById(R.id.imageViewFoto);
             TextView textViewDescricao = (TextView) view.findViewById(R.id.textViewDescricao);
@@ -42,8 +42,8 @@ public class CarrinhoAdapter extends ArrayAdapter<ItemCarrinho> {
 
             ItemCarrinho carrinho = carrinhoArrayList.get(position);
 
-            /*textViewDescricao.setText(carrinho.getCliente());
-            textViewPreco.setText(String.valueOf(produto.getPreco()));*/
+            textViewDescricao.setText(carrinho.getProduto().getNome());
+            textViewPreco.setText(String.valueOf(carrinho.getProduto().getPreco()));
         }
         return view;
     }

@@ -2,8 +2,11 @@ package com.example.rr147.projetointegrador.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,12 +50,35 @@ public class CarrinhoActivity extends AppCompatActivity {
 
         mostrarCarrinho = new MostrarCarrinho(this, valorCarrinho);
 
-        mostrarCarrinho.request("auth/carrinho", "GET", secao.token());
+        mostrarCarrinho.request("/carrinho", "GET", secao.token());
 
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setTitle("Carrinho");
+    }
+
+    @Override
+    public void onBackPressed(){
+        Intent intent = new Intent(this, ProdutosActivity.class);
+        startActivity(intent);
+        finish();
+        return;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        int id = menuItem.getItemId();
+
+        if(id == android.R.id.home){
+            Intent intent = new Intent(this, ProdutosActivity.class);
+            startActivity(intent);
+            finish();
+        }
+
+        return super.onOptionsItemSelected(menuItem);
     }
 
     public void comprarTudo(View view) {
         FinalizarCompra finalizarCompra = new FinalizarCompra();
-        finalizarCompra.request("auth/compra", "POST", secao.token());
+        finalizarCompra.request("/venda", "POST", secao.token());
     }
 }

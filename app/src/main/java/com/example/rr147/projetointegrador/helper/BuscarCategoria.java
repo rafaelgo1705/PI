@@ -74,8 +74,7 @@ public class BuscarCategoria extends AsyncTask<String, Void, String> {
 
     @Override
     protected void onPostExecute(String categoria) {
-
-        /*listaProdutosFragment.categoriaArrayList.addAll(listaCategoria);
-        listaProdutosFragment.produtoArrayAdapter.notifyDataSetChanged();*/
+        listaProdutosFragment.listCategoria.addAll(listaCategoria);
+        listaProdutosFragment.adapterProdutos.notifyDataSetChanged();
     }
 }

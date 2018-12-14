@@ -38,8 +38,6 @@ public class ProdutoAdapter extends ArrayAdapter<Produto> {
             TextView textViewDescricao = (TextView) view.findViewById(R.id.textViewDescricao);
             TextView textViewPreco = (TextView) view.findViewById(R.id.textViewPreco);
 
-            textViewDescricao.setMaxLines(3);
-
             Produto produto = produtoAdapter.get(position);
 
             textViewDescricao.setText(produto.getNome());

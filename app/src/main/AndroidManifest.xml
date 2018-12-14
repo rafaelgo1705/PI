@@ -21,7 +21,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.CadastroClienteActivity" />
-        <activity android:name=".activity.VerContaClienteActivity" />
         <activity android:name=".activity.ProdutosActivity" />
         <activity android:name=".activity.CarrinhoActivity"></activity>
     </application>

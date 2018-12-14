@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.example.rr147.projetointegrador.activity.LoginActivity;
+import com.example.rr147.projetointegrador.activity.ProdutosActivity;
 import com.example.rr147.projetointegrador.database.ConnectAPI;
 import com.example.rr147.projetointegrador.domain.Cliente;
 
@@ -58,7 +59,7 @@ public class VerificarToken extends AsyncTask<String, Void, Integer> {
     protected void onPostExecute(Integer code) {
 
         if (code.equals(200)) {
-            Intent i = new Intent(LoginActivity.context, MainActivity.class);
+            Intent i = new Intent(LoginActivity.context, ProdutosActivity.class);
             LoginActivity.context.startActivity(i);
 
         } else {
