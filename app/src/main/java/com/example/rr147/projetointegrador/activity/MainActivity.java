@@ -1,5 +1,7 @@
 package com.example.rr147.projetointegrador.activity;
 
+import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -12,8 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.rr147.projetointegrador.fragmentos.CarrinhoFragment;
 import com.example.rr147.projetointegrador.fragmentos.ContaFragment;
@@ -25,17 +30,15 @@ import com.example.rr147.projetointegrador.domain.Produto;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
-    private ListView listViewProdutos;
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private DrawerLayout drawer;
     private NavigationView navigationView;
+    private View view;
+    private Drawable drawable;
 
-    private ArrayAdapter<Produto> produtoArrayAdapter;
-    private ArrayList<Produto> produtoArrayList;
-
-    private List<Produto> produtoList;
-    private ProdutoDAO produtoDAO;
+    private TextView email;
+    private TextView usuario;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +46,6 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -54,14 +56,24 @@ public class MainActivity extends AppCompatActivity
         navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        view = navigationView.getHeaderView(0);
+
+        email = (TextView) view.findViewById(R.id.textViewEmail);
+        usuario = (TextView) view.findViewById(R.id.textViewUsuario);
+        imageView = (ImageView) view.findViewById(R.id.imageView);
+
+        email.setText("r@gmail.com");
+        usuario.setText("Rafael Gomes");
+
+        drawable = getResources().getDrawable(R.drawable.baseline_account_circle_24);
+        imageView.setImageDrawable(drawable);
+
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.fragment_content,new ListaProdutosFragment()).commit();
 
         navigationView.setCheckedItem(R.id.nav_produtos);
 
     }
-
-
 
     @Override
     public void onBackPressed() {
