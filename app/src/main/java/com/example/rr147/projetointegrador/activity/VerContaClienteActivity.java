@@ -7,7 +7,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 
 import com.example.rr147.projetointegrador.R;
-import com.example.rr147.projetointegrador.dao.ClienteDAO;
 import com.example.rr147.projetointegrador.domain.Cliente;
 
 public class VerContaClienteActivity extends AppCompatActivity {
@@ -19,7 +18,6 @@ public class VerContaClienteActivity extends AppCompatActivity {
     private RadioButton radioButtonFeminino;
 
     private Cliente cliente;
-    private ClienteDAO clienteDAO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,9 +33,6 @@ public class VerContaClienteActivity extends AppCompatActivity {
     }
 
     private void carregarDadosCliente(){
-        clienteDAO = new ClienteDAO();
-        cliente = clienteDAO.buscar();
-
         editTextNome.setText(cliente.getNome());
         editTextEmail.setText(cliente.getEmail());
         editTextTelefone.setText(cliente.getTelefone());
@@ -50,7 +45,6 @@ public class VerContaClienteActivity extends AppCompatActivity {
     }
 
     public void apagarConta(View view){
-        clienteDAO = new ClienteDAO();
-        clienteDAO.remover(cliente);
+
     }
 }

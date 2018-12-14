@@ -41,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private ProgressDialog pd;
     public static Context context;
+    public static Activity activity;
 
     private String url = ConnectAPI.conectarAPI();
     private Cliente cliente;
@@ -54,6 +55,7 @@ public class LoginActivity extends AppCompatActivity {
 
         //verificarAutenticacao();
         this.context = getApplicationContext();
+        activity = this;
 
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
         editTextSenha = (EditText) findViewById(R.id.editTextSenha);

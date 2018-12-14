@@ -7,7 +7,7 @@ public class Produto {
     private String nome;
     private double preco;
     private double custo;
-    private String categoria;
+    private List<Categoria> categoria;
     private int quantidade;
     private List<Imagem> imagens;
 
@@ -51,11 +51,11 @@ public class Produto {
         this.custo = custo;
     }
 
-    public String getCategoria() {
+    public List<Categoria> getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(List<Categoria> categoria) {
         this.categoria = categoria;
     }
 

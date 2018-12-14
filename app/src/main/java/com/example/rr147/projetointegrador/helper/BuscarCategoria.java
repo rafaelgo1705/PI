@@ -2,9 +2,9 @@ package com.example.rr147.projetointegrador.helper;
 
 import android.os.AsyncTask;
 
+import com.example.rr147.projetointegrador.activity.ProdutosActivity;
 import com.example.rr147.projetointegrador.database.ConnectAPI;
 import com.example.rr147.projetointegrador.domain.Categoria;
-import com.example.rr147.projetointegrador.fragmentos.ListaProdutosFragment;
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
@@ -20,7 +20,7 @@ import java.util.List;
 public class BuscarCategoria extends AsyncTask<String, Void, String> {
     private int codigoStatus = 0;
     private List<Categoria> listaCategoria = new ArrayList<>();
-    private ListaProdutosFragment listaProdutosFragment = new ListaProdutosFragment();
+    private ProdutosActivity listaProdutosFragment = new ProdutosActivity();
 
     public void request(String url, String method) {
         this.execute(url, method);

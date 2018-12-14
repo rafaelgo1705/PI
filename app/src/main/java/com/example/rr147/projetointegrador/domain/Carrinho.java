@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Carrinho {
     private int id;
-    private List<Produto> produtos;
+    private List<ItemCarrinho> itensCarrinho;
     private Date expireTime;
     private Cliente cliente;
 
@@ -17,12 +17,12 @@ public class Carrinho {
         this.id = id;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public List<ItemCarrinho> getItensCarrinho() {
+        return itensCarrinho;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setItensCarrinho(List<ItemCarrinho> itensCarrinho) {
+        this.itensCarrinho = itensCarrinho;
     }
 
     public Date getExpireTime() {

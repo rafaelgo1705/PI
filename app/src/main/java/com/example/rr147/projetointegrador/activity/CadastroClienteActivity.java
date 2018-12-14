@@ -1,6 +1,7 @@
 package com.example.rr147.projetointegrador.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -12,9 +13,12 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 
-import com.example.rr147.projetointegrador.dao.ClienteDAO;
 import com.example.rr147.projetointegrador.R;
 import com.example.rr147.projetointegrador.domain.Cliente;
+import com.example.rr147.projetointegrador.helper.ManipularCadastro;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -29,12 +33,14 @@ public class CadastroClienteActivity extends AppCompatActivity {
     private RadioButton radioButtonFeminino;
 
     private Cliente cliente;
-    private ClienteDAO clienteDAO;
+
+    public static Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_cliente);
+        this.context = getApplicationContext();
 
         editTextNome = (EditText) findViewById(R.id.editTextNome);
         editTextEmail = (EditText) findViewById(R.id.editTextEmail);
@@ -89,8 +95,22 @@ public class CadastroClienteActivity extends AppCompatActivity {
                 cliente.setSexo("Masculino");
             }
 
-            clienteDAO = new ClienteDAO();
-            clienteDAO.salvar(cliente, this);
+            JSONObject clienteJson = new JSONObject();
+            ManipularCadastro manipularCadastro = new ManipularCadastro();
+
+            try {
+                clienteJson.put("nome", cliente.getNome());
+                clienteJson.put("senha", cliente.getSenha());
+                clienteJson.put("email", cliente.getEmail());
+                clienteJson.put("telefone", cliente.getTelefone());
+                clienteJson.put("dataNascimento", cliente.getDataNascimento());
+                clienteJson.put("sexo", cliente.getSexo());
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            manipularCadastro.request("/cliente", "POST", clienteJson);
+
             sair();
         }
     }

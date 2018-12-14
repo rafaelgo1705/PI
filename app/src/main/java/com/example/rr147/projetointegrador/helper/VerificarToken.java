@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 
 import com.example.rr147.projetointegrador.activity.LoginActivity;
-import com.example.rr147.projetointegrador.activity.MainActivity;
 import com.example.rr147.projetointegrador.database.ConnectAPI;
 import com.example.rr147.projetointegrador.domain.Cliente;
 
